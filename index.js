@@ -1,35 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
+const compression = require("compression")
 
-const { change_alias } = require("./util/helper");
+// const { change_alias } = require("./util/helper");
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 app.set('view engine', 'pug');
+app.use(compression())
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-// app.use(cookieParser(process.env.SECRET_SESSION));
-// app.use(sessionMiddleware);
-// app.use(csrf({ cookie: true }));
-// 
-// mongoose.connect(process.env.MONGO_URL);
-// const db = require('./db');
+app.use(express.static('public'));
 
-
-/*app.get('/', function (request, response) {
-	response.send('<h1>Hello Coders.Tokyo</h1>');
-});*/
-
-// Static file - Express looks up the files relative to the static directory, so the name of the static directory is not part of the URL.
-app.use(express.static('public'))
-
-/*var users = 
-[
-	{id: 1, name: 'Linz'},
-	{id: 2, name: 'Liar'},
-	{id: 2, name: 'Blue'}
-];*/
 
 app.get("/", async (req, res) => {
 	try {
