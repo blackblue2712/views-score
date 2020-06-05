@@ -1,0 +1,25 @@
+html
+	head
+		link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", rel="stylesheet")
+	body
+		header(class="navbar navbar-expand  flex-column flex-md-row bd-navbar mt-0 pt-0")
+			nav(class="navbar navbar-expand-lg navbar-light bg-light")
+				a(class="navbar-brand" href="#")
+					//- img(src="/images/logo.png", width="200")
+				button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+					span(class="navbar-toggler-icon")
+				div(class="collapse navbar-collapse" id="navbarSupportedContent")
+					ul(class="navbar-nav mr-auto")
+						li(class="nav-item active")
+							a(class="nav-link btn" href="#") Views Score
+			if user			
+				p= user.name
+
+		<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-firestore.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.1/xlsx.full.min.js"></script>
+		script(src='/js/index.js')
+	block content
+
+
