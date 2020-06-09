@@ -1,0 +1,12 @@
+extends ./layouts/common
+block content
+	.container.mt-5
+		form#formAuth
+				.form-group.mt-4
+					label(for="username") Username
+					input#username.form-control(type="text" name="username" placeholder="username")
+					label(for="password") Password
+					input#password.form-control(type="password" name="password" placeholder="******")
+				button.btn.btn-primary Submit
+
+	script(src="/js/auth.js")

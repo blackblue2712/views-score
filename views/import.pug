@@ -1,0 +1,17 @@
+
+
+extends ./layouts/common
+block content
+	.container.mt-5
+		if errors
+			each error in errors
+				.alert.alert-danger= error
+		form#formAddData(method="POST")
+			.form-group
+				div
+					label(for="file") Import file
+				input#file(type="file" name="file")
+			button.btn.btn-primary Submit
+
+	script(src="/js/isAuth.js")
+	script(src="/js/import.js")
