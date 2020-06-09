@@ -19,7 +19,12 @@ block content
 				.form-group.mt-4
 					label(for="mssv") Mã số sinh viên
 					input#mssv.form-control(type="text" name="mssv" placeholder="Ma so sv")
+					label(for="dayOfBirth") Ngày sinh
+					input#dayOfBirth.form-control(type="date" name="dayOfBirth")
 				//- .form-group.mt-4
 				//- 	label(for="phone") Mã số sinh viên
 				//- 	input#phone.form-control(type="text" name="mssv" placeholder="Ma so sv")
 			button.btn.btn-primary Submit
+
+	.container.mt-5
+		#results
