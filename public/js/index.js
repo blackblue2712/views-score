@@ -13,7 +13,7 @@ const onSubmitFormGetData = async (e) => {
 	).toLocaleDateString();
 
 	document.getElementById("results").innerHTML = "Loading...";
-	const res = await axios.post("/score/hp", { hp, mssv, dayOfBirth: dayOfBirth });)
+	const res = await axios.post("/score/hp", { hp, mssv, dayOfBirth: dayOfBirth });
 	if (res.data) {
 		let rs = `Điểm của bạn ${res.data.lastName + " " + res.data.firstName} (${changeOrderDate(res.data.dayOfBirth)}) là <br />`;
 		for (let i in res.data.score) {
