@@ -28,12 +28,12 @@ function xlSerialToJsDate(xlSerial) {
 
 const onSubmitFormAddData = async (e) => {
 	e.preventDefault();
-
+	let loadingElement = document.getElementById("loading");
 	try {
+		loadingElement.innerHTML = "Processing...";
 		const data = await readFile(file);
 		const hpStringify = change_alias(data.hp);
 		const token = localStorage.getItem("views-score-jwt");
-
 		const res = await axios.post("/score/add-hp", {
 			hpStringify,
 			dataFilter: data.dataFilter,
@@ -43,7 +43,9 @@ const onSubmitFormAddData = async (e) => {
 		alert(res.data.message);
 	} catch (err) {
 		console.log(err);
+		alert("File sai dinh dang")
 	}
+	loadingElement.innerHTML = "";
 };
 
 const onChangeFile = async (e) => {
@@ -68,24 +70,12 @@ const readFile = async (file) => {
 				const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
 				const hp = data[0][1];
 
-				let dataFilter = [];
+				let dataFilter = []
 				if (data) {
-					for (let i = 2; i < data.length; i++) {
-						dataFilter.push({
-							id: data[i][1].toLowerCase(),
-							lastName: data[i][2],
-							firstName: data[i][3],
-							dayOfBirth:
-								typeof data[i][4] === "number"
-									? changeOrderDate(xlSerialToJsDate(data[i][4]))
-									: changeOrderDate(data[i][4]),
-							mssv: data[i][5].toLowerCase(),
-							score: {
-								thucHanh: data[i][27] || 0,
-								lyThuyet: data[i][28] || 0,
-								quaTrinh: data[i][29] || 0,
-							},
-						});
+					try {
+						dataFilter = createObjectData(data);
+					} catch (err) {
+						reject(err)
 					}
 				}
 				resolve({ dataFilter, hp });
@@ -95,6 +85,29 @@ const readFile = async (file) => {
 		}
 	});
 };
+
+
+function createObjectData(data) {
+	let dataFilter = [];
+	for (let i = 2; i < data.length; i++) {
+		dataFilter.push({
+			id: data[i][1].toLowerCase(),
+			lastName: data[i][2],
+			firstName: data[i][3],
+			dayOfBirth:
+				typeof data[i][4] === "number"
+					? changeOrderDate(xlSerialToJsDate(data[i][4]))
+					: changeOrderDate(data[i][4]),
+			mssv: data[i][5].toLowerCase(),
+			score: {
+				thucHanh: data[i][27] || 0,
+				lyThuyet: data[i][28] || 0,
+				quaTrinh: data[i][29] || 0,
+			},
+		});
+	}
+	return dataFilter;
+}
 
 window.onload = () => {
 	document

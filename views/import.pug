@@ -10,8 +10,11 @@ block content
 			.form-group
 				div
 					label(for="file") Import file
-				input#file(type="file" name="file")
+				input#file(type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .xlsx, .xls, .csv, .ods" name="file")
 			button.btn.btn-primary Submit
+
+	.container.mt-5
+		#loading
 
 	script(src="/js/isAuth.js")
 	script(src="/js/import.js")
