@@ -90,21 +90,25 @@ const readFile = async (file) => {
 function createObjectData(data) {
 	let dataFilter = [];
 	for (let i = 2; i < data.length; i++) {
-		dataFilter.push({
-			id: data[i][1].toLowerCase(),
-			lastName: data[i][2],
-			firstName: data[i][3],
-			dayOfBirth:
-				typeof data[i][4] === "number"
-					? changeOrderDate(xlSerialToJsDate(data[i][4]))
-					: changeOrderDate(data[i][4]),
-			mssv: data[i][5].toLowerCase(),
-			score: {
-				thucHanh: data[i][27] || 0,
-				lyThuyet: data[i][28] || 0,
-				quaTrinh: data[i][29] || 0,
-			},
-		});
+		if (data[i].length === 30) {
+			dataFilter.push({
+				id: data[i][1].toLowerCase(),
+				lastName: data[i][2],
+				firstName: data[i][3],
+				dayOfBirth:
+					data[i][4] ?
+						typeof data[i][4] === "number"
+							? changeOrderDate(xlSerialToJsDate(data[i][4]))
+							: changeOrderDate(data[i][4])
+						: "",
+				mssv: data[i][5].toLowerCase(),
+				score: {
+					thucHanh: data[i][27] || 0,
+					lyThuyet: data[i][28] || 0,
+					quaTrinh: data[i][29] || 0,
+				},
+			});
+		}
 	}
 	return dataFilter;
 }
