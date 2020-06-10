@@ -32,6 +32,7 @@ app.post("/score/hp", async (req, res) => {
 	);
 
 	let result = response.data.find((res) => {
+		// console.log(dayOfBirth, res.dayOfBirth)
 		return res.id === mssv && new Date(res.dayOfBirth).getTime() === timeCheck;
 	});
 	res.send(result);
