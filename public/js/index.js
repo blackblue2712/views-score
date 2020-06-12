@@ -8,9 +8,12 @@ const onSubmitFormGetData = async (e) => {
 
 	let hp = document.getElementById("hp").value;
 	let mssv = document.getElementById("mssv").value.toLowerCase();
-	let dayOfBirth = new Date(
-		document.getElementById("dayOfBirth").valueAsNumber
-	).toLocaleDateString();
+	// console.log(document.getElementById("dayOfBirth").value)
+
+	let monthAndYear = document.getElementById("dayOfBirth").value;
+	let day = document.getElementById("day").value;
+
+	let dayOfBirth = new Date(monthAndYear + "-" + day).toLocaleDateString();
 
 	document.getElementById("results").innerHTML = "Loading...";
 	const res = await axios.post("/score/hp", { hp, mssv, dayOfBirth: dayOfBirth });
